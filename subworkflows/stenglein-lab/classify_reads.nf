@@ -3,7 +3,9 @@ include { PREPROCESS_READS            } from '../../subworkflows/stenglein-lab/p
 
 include { MULTIQC  as MULTIQC_PRE     } from '../../modules/nf-core/multiqc/main' 
 
-include { KRAKEN2_WORKFLOW            } from '../../subworkflows/stenglein-lab/kraken2.nf'
+include { KRAKEN2_WORKFLOW            } from '../../subworkflows/stenglein-lab/kraken2'
+
+include { PROCESS_BRACKEN_OUTPUT      } from '../../modules/stenglein-lab/process_bracken_output/main'
 
 // include { MULTIQC  as MULTIQC_PRE     }              from '../../modules/nf-core/multiqc/main' 
 // include { CUSTOM_DUMPSOFTWAREVERSIONS }              from '../../modules/nf-core/custom/dumpsoftwareversions/main'
@@ -49,6 +51,8 @@ workflow CLASSIFY_READS {
   // COLLECT_READS(ch_process_fastq.collect)
 
   KRAKEN2_WORKFLOW(ch_processed_fastq)
+
+  PROCESS_BRACKEN_OUTPUT(KRAKEN2_WORKFLOW.out.bracken_reports.collectFile(name: "collected_bracken_output.txt"))
 
   // SAVE_FASTQ_OUTPUT(ch_processed_reads.map{meta, reads -> reads})
 

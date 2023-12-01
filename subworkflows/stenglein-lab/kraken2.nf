@@ -2,6 +2,8 @@ include { CHECK_KRAKEN2_DB           } from '../../modules/stenglein-lab/check_k
 include { KRAKEN2_KRAKEN2            } from '../../modules/nf-core/kraken2/kraken2/main'
 include { BRACKEN_BRACKEN            } from '../../modules/nf-core/bracken/bracken/main'
 
+include { PREPEND_TSV_WITH_ID        } from '../../modules/stenglein-lab/prepend_tsv_with_id/main'
+
 workflow KRAKEN2_WORKFLOW {
 
  take:
@@ -31,8 +33,15 @@ workflow KRAKEN2_WORKFLOW {
   ch_unclassified_fastq          = KRAKEN2_KRAKEN2.out.unclassified_reads_fastq
   ch_versions                    = ch_versions.mix(KRAKEN2_KRAKEN2.out.versions)
 
+  // Run bracken
   BRACKEN_BRACKEN(KRAKEN2_KRAKEN2.out.report, CHECK_KRAKEN2_DB.out.db_path)
-  ch_bracken_reports          = BRACKEN_BRACKEN.out.reports
+  // ch_bracken_reports          = BRACKEN_BRACKEN.out.reports
+
+  // prepend IDs into bracken tsv output for easier downstream processing in R
+  PREPEND_TSV_WITH_ID(BRACKEN_BRACKEN.out.reports)
+  ch_bracken_reports          = PREPEND_TSV_WITH_ID.out.tsv_file
+
+  // other bracken output
   ch_bracken_species          = BRACKEN_BRACKEN.out.txt
   ch_versions                 = ch_versions.mix(BRACKEN_BRACKEN.out.versions)
 
