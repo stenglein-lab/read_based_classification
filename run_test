@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# nextflow run -profile singularity,local -resume main.nf --fastq_dir "../2023_1_OC_datasets/2021_4_7_Tillie_Fly_Pools/" --fastq_pattern "Hydei*fastq.gz" --kraken2_db_dir "/dev/shm/standard_8"
+# nextflow run -profile singularity,local -resume main.nf --fastq_dir "../2023_1_OC_datasets/2021_4_7_Tillie_Fly_Pools/" --fastq_pattern "Hydei*fastq.gz" --kraken2_db_dir "/dev/shm/standard_8"
+# nextflow run -profile singularity,local -resume main.nf --fastq_dir "../2023_1_OC_datasets/2021_4_7_Tillie_Fly_Pools/" --fastq_pattern "Hydei*fastq.gz" 
+nextflow run -profile singularity,local -resume main.nf --fastq_dir "../2023_11_OC_preprocessed_reads/trimmed_fastq_R1_only" --fastq_pattern "10042*fastq.gz" --kraken2_db_dir "/dev/shm/standard_plus_pfp_16"  --reads_already_preprocessed
+
