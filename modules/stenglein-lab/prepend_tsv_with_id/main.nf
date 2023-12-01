@@ -24,8 +24,9 @@ process PREPEND_TSV_WITH_ID {
     // prepend tsv output with a column containing sample ID (from meta.id)
     // on all lines except first line, which is presumed to be a header
     // in first header line, insert a # comment character instead of the ID as first column
+    //awk '{ if (NR==1) { print "#\t" $0 } else {print "!{meta.id}" "\t" $0}  }' !{tsv} > "!{tsv}.prepended.tsv"
     '''
-    awk '{ if (NR==1) { print "#\t" $0 } else {print "!{meta.id}" "\t" $0}  }' !{tsv} > "!{tsv}.prepended.tsv"
+    awk '{ print "!{meta.id}" "\t" $0 }' !{tsv} > "!{tsv}.prepended.tsv"
     
     cat <<-END_VERSIONS > versions.yml
     "!{task.process}":

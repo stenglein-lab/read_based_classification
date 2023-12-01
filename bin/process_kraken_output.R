@@ -12,7 +12,7 @@ library (tidyverse)
 if (!interactive()) {
   # if running from Rscript
   args = commandArgs(trailingOnly=TRUE)
-  bracken_output_file = args[1]
+  kraken_output_file = args[1]
   output_directory="./"
 } else {
   # if running via RStudio
@@ -20,6 +20,6 @@ if (!interactive()) {
   # output_directory="../results/"
 }
 
-df <- read.delim(bracken_output_file, sep="\t", header=F)
+df <- read.delim(kraken_output_file, sep="\t", header=F)
 
 
