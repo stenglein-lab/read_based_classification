@@ -35,6 +35,7 @@ workflow PREPROCESS_READS {
   ch_versions         = Channel.empty()                                               
   ch_fastq_counts     = Channel.empty()                                               
   ch_processed_fastq  = Channel.empty()                                               
+  ch_reads            = Channel.empty()                                               
 
   // make sure all the fastq are in order
   MARSHAL_FASTQ(input_fastq_dir, fastq_pattern)
