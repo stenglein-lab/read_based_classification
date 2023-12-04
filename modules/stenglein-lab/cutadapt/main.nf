@@ -48,7 +48,7 @@ https://github.com/nextflow-io/nextflow/commit/00bb8896a18d23bf82df66b267b4d03f0
 
 */
 
-process TRIM_READS {
+process CUTADAPT {
     tag "$meta.id"
     label 'process_medium'
 
